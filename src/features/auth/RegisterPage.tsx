@@ -1,7 +1,9 @@
 import { RegisterForm } from "@/components/layout/auth/registerForm";
 import { RegisterSchema } from "@/lib/registerSchema";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface RegisterResponse {
   success: boolean;
@@ -61,10 +63,17 @@ export default function RegisterPage() {
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
 
+      toast.success("Registration Successful. Welcome to Library Hub", {
+        icon: <CheckCircle className="text-green-500" />
+      });
+
       // Navigate after success
       navigate("/login");
-    } catch (err: any) {
-      setError(err.message || "An error occurred. Registration unsuccessful.");
+    } catch (error: any) {
+      setError(error.message || "An error occurred. Registration unsuccessful.");
+      toast.error(error.message, {
+        icon: <CheckCircle className="text-red-500" />,
+      });
     }
   };
 

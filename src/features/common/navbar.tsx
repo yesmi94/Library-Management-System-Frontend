@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { LibraryBigIcon, LogOut, User } from "lucide-react";
+import { CheckCircle, LibraryBigIcon, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "@/customHooks/useRole";
+import { toast } from "sonner";
 
 const Navbar: React.FC = () => {
   const { isMember, isManagement, isMinorStaff } = useRole();
@@ -43,6 +44,9 @@ const Navbar: React.FC = () => {
     localStorage.removeItem("password");
     localStorage.removeItem("name");
     localStorage.removeItem("username");
+    toast.success("Successfully Logged Out", {
+      icon: <CheckCircle className="text-green-500" />
+    });
     navigate("/login");
   };
 

@@ -35,8 +35,6 @@ export const BorrowedBookDetailsCard: React.FC<BookDetailsDisplayCardProps> = ({
     setIsDialogOpen(false);
   }
 
-  
-
   return (
     <Card className={cardTheme.container}>
       <CardHeader className={cardTheme.header}>

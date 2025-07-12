@@ -1,6 +1,8 @@
+import { CheckCircle } from 'lucide-react';
 import {LoginForm }  from '../../components/layout/auth/loginForm'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner';
 
 
 interface LoginResponse {
@@ -43,7 +45,9 @@ export const LoginPage = () => {
 
       try {
         result = await response.json();
-        console.log("Login response:", result);
+        toast.success("Login Successful", {
+          icon: <CheckCircle className="text-green-500" />
+    });
 
       } catch (jsonError) {
         throw new Error("Invalid response from server");
@@ -60,8 +64,11 @@ export const LoginPage = () => {
       console.log(localStorage.getItem("role"));
 
       navigate("/");
-    } catch (err: any) {
-      setError(err.message || "An error occurred. Login unsuccessful");
+    } catch (error: any) {
+      setError(error.message || "An error occurred. Login unsuccessful");
+      toast.error(error.message, {
+        icon: <CheckCircle className="text-red-500" />,
+      });
     }
   };
 
