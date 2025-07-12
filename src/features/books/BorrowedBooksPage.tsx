@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BorrowedBookDetailsCard, type Book } from "../../components/layout/books/borrowedBookDetailsCard";
-import { Loader2, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "../common/navbar";
 
@@ -26,13 +26,16 @@ const BorrowedBooksDisplayPage: React.FC = () => {
       throw new Error(result.message || "Failed to return the book.");
     }
 
-    
     setBorrowedBooks(prev => prev.filter(b => b.borrowingId !== borrowingId));
-    toast(result.message);
+    toast.success(result.message, {
+      icon: <CheckCircle className="text-green-500" />
+    });
     
     } catch (error: any) {
       console.error("Error occurred:", error.message);
-      toast("Error occurred: " + error.message);
+      toast.error(error.message, {
+        icon: <CheckCircle className="text-red-500" />,
+    });
     }
   }
 

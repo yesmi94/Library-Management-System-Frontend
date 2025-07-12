@@ -1,7 +1,7 @@
 // components/books/BooksDisplayPage.tsx
 import React, { useEffect, useState } from "react";
 import { BookDetailsCard, type Book } from "../../components/layout/books/bookDetailsCard";
-import { Loader2, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "../common/navbar";
 
@@ -29,7 +29,9 @@ const BooksDisplayPage: React.FC = () => {
     }
 
     setBooks(prev => prev.filter(b => b.id !== b.id));
-    toast(result.message);
+    toast.success(result.message, {
+        icon: <CheckCircle className="text-green-500" />
+    });
 
     setTimeout(() => {
       window.location.reload();
@@ -37,7 +39,9 @@ const BooksDisplayPage: React.FC = () => {
 
     } catch (error: any) {
       console.error("Borrow error:", error.message);
-      toast("Error borrowing the book: " + error.message);
+      toast.error(error.message, {
+              icon: <CheckCircle className="text-red-500" />,
+      });
     }
   }
 
@@ -58,7 +62,9 @@ const BooksDisplayPage: React.FC = () => {
         throw new Error(result.message || "Failed to delete the book.");
       }
 
-      toast(result.message);
+      toast.success(result.message, {
+        icon: <CheckCircle className="text-green-500" />
+      });
 
       setTimeout(() => {
         window.location.reload();
@@ -66,7 +72,9 @@ const BooksDisplayPage: React.FC = () => {
     }
     catch (error: any) {
       console.error("Delete error:", error.message);
-      toast("Error deleting the book: " + error.message);
+      toast.error(error.message, {
+        icon: <CheckCircle className="text-red-500" />,
+      });
     }
   }
 

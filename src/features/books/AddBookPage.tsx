@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Navbar from "../common/navbar";
+import { CheckCircle } from "lucide-react";
 
 interface AddBookResponse {
   success: boolean;
@@ -44,7 +45,9 @@ export default function AddBookPage() {
 
       try {
         result = await response.json();
-        toast(result.message);
+        toast.success(result.message, {
+      icon: <CheckCircle className="text-green-500" />
+    });
       } catch {
         throw new Error("Invalid response from server.");
       }
@@ -61,8 +64,11 @@ export default function AddBookPage() {
 
       // Navigate after success
       navigate("/books");
-    } catch (err: any) {
-      setError(err.message || "An error occurred. Registration unsuccessful.");
+    } catch (error: any) {
+      setError(error.message || "An error occurred. Registration unsuccessful.");
+      toast.error(error.message, {
+        icon: <CheckCircle className="text-red-500" />,
+      });
     }
   };
 

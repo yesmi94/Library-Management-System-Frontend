@@ -15,6 +15,9 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setMounted(true);
+    setTimeout(() => {
+        window.location.reload();
+      }, 3000);
   }, []);
 
   const firstInitial = nameOfTheUser.charAt(0).toUpperCase();
