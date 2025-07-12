@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, LibraryBigIcon, LogOut, User } from "lucide-react";
+import { CheckCircle, LibraryBigIcon, LogIn, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "@/customHooks/useRole";
 import { toast } from "sonner";
 
 const Navbar: React.FC = () => {
-  const { isMember, isManagement, isMinorStaff } = useRole();
+  const { isMember, isManagement, isMinorStaff, notLoggedIn } = useRole();
   const navigate = useNavigate();
 
   const name = localStorage.getItem("name") || "Guest";
@@ -39,16 +39,20 @@ const Navbar: React.FC = () => {
 
 
     const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    localStorage.removeItem("password");
-    localStorage.removeItem("name");
-    localStorage.removeItem("username");
-    toast.success("Successfully Logged Out", {
-      icon: <CheckCircle className="text-green-500" />
-    });
-    navigate("/login");
-  };
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("password");
+      localStorage.removeItem("name");
+      localStorage.removeItem("username");
+      toast.success("Successfully Logged Out", {
+        icon: <CheckCircle className="text-green-500" />
+      });
+      navigate("/login");
+    };
+
+    const handleLogin = () => {
+      navigate("/login");
+    }
 
   return (
 <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-[#CBD5E1] shadow-sm">
@@ -88,14 +92,30 @@ const Navbar: React.FC = () => {
           <User className="mr-1 w-4 h-4 text-[#4C5B8F]" />
           {name}
         </Button>
-        <Button
+        {!notLoggedIn && (
+          <Button
           variant="ghost"
           className="text-[#4C5B8F] hover:text-[#2D2D2D] hover:bg-[#F3F4F6] border border-transparent hover:border-[#CBD5E1] rounded-md transition-colors"
           onClick={handleLogout}
-        >
-          <LogOut className="mr-1 w-4 h-4 text-[#4C5B8F]" />
-          Logout
-        </Button>
+          >
+            <LogOut className="mr-1 w-4 h-4 text-[#4C5B8F]" />
+            Logout
+          </Button>
+        )}
+
+        {notLoggedIn && (
+          <Button
+          variant="ghost"
+          className="text-[#4C5B8F] hover:text-[#2D2D2D] hover:bg-[#F3F4F6] border border-transparent hover:border-[#CBD5E1] rounded-md transition-colors"
+          onClick={handleLogin}
+          >
+            <LogIn className="mr-1 w-4 h-4 text-[#4C5B8F]" />
+            LogIn
+          </Button>
+        )}
+        
+        
+        
       </div>
     </div>
   </div>

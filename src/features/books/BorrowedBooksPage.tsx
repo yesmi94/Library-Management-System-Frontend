@@ -34,8 +34,8 @@ const BorrowedBooksDisplayPage: React.FC = () => {
     } catch (error: any) {
       console.error("Error occurred:", error.message);
       toast.error(error.message, {
-        icon: <CheckCircle className="text-red-500" />,
-    });
+        icon: <AlertCircle  className="text-red-500" />,
+      });
     }
   }
 

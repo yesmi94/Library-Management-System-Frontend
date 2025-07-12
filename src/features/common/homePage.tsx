@@ -21,7 +21,7 @@ import Navbar from "./navbar";
 useRole();
 
 export default function HomePage() {
-  const { isMember, isManagement, isMinorStaff } = useRole();
+  const { isMember, isManagement, isMinorStaff, notLoggedIn } = useRole();
   const navigate = useNavigate();
   const [, setMounted] = useState(false);
 
@@ -30,6 +30,13 @@ export default function HomePage() {
   }, []);
 
   const getRoleInfo = () => {
+    if(notLoggedIn)
+      return {
+        title: "Join the Library Hub",
+        subtitle: "Your gateway to endless knowledge and discovery",
+        icon: <Users className="h-8 w-8 text-[#4C5B8F]" />,
+        gradient: "from-[#CBD5E1]/40 to-[#4C5B8F]/40",
+      };
     if (isManagement)
       return {
         title: "Management Dashboard",
@@ -192,6 +199,27 @@ export default function HomePage() {
                       onClick={() => navigate("/persons")}
                     >
                       Person List
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {notLoggedIn && (
+                <div className="flex justify-center">
+                  <div className="bg-white/70 backdrop-blur-md rounded-2xl p-6 border border-[#CBD5E1] hover:border-[#4C5B8F] transition-all duration-300 max-w-md">
+                    <Users className="h-8 w-8 text-[#4C5B8F] mb-4 mx-auto" />
+                    <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2 text-center">
+                      Login if you have aldeary joined the Library Hub
+                    </h3>
+                    <p className="text-[#475569] mb-4 text-center">
+                      Haven't joined yet ? Register and become a part of this system
+                    </p>
+                    <Button
+                      className="bg-gradient-to-r from-[#4C5B8F] to-[#5A6BAE] hover:from-[#5A6BAE] hover:to-[#4C5B8F] text-white border border-[#4C5B8F] w-full group"
+                      onClick={() => navigate("/register")}
+                    >
+                      Register
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>

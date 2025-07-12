@@ -6,5 +6,6 @@ export function useRole() {
     isMember: role === 0,
     isManagement: role === 1,
     isMinorStaff: role === 2,
+    notLoggedIn: role === -1
   };
 }

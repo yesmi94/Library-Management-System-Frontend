@@ -1,6 +1,6 @@
 import { RegisterForm } from "@/components/layout/auth/registerForm";
 import { RegisterSchema } from "@/lib/registerSchema";
-import { CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -72,7 +72,7 @@ export default function RegisterPage() {
     } catch (error: any) {
       setError(error.message || "An error occurred. Registration unsuccessful.");
       toast.error(error.message, {
-        icon: <CheckCircle className="text-red-500" />,
+        icon: <AlertCircle  className="text-red-500" />,
       });
     }
   };

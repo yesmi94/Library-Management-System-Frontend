@@ -1,4 +1,4 @@
-import { CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 import {LoginForm }  from '../../components/layout/auth/loginForm'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ export const LoginPage = () => {
       try {
         result = await response.json();
         toast.success("Login Successful", {
-          icon: <CheckCircle className="text-green-500" />
+          icon: <CheckCircle className="text-green-500" />,
     });
 
       } catch (jsonError) {
@@ -67,7 +67,7 @@ export const LoginPage = () => {
     } catch (error: any) {
       setError(error.message || "An error occurred. Login unsuccessful");
       toast.error(error.message, {
-        icon: <CheckCircle className="text-red-500" />,
+        icon: <AlertCircle  className="text-red-500" />,
       });
     }
   };
