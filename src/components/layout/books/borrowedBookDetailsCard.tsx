@@ -64,7 +64,8 @@ export const BorrowedBookDetailsCard: React.FC<BookDetailsDisplayCardProps> = ({
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         onConfirm={() => handleConfirm()}
-        message = "Your are about to return this Book. Do you want to continue ?"/>
+        message = "Your are about to return this Book. Do you want to continue ?"
+        dialogTitle="Return the Book"/>
     </Card>
     
   );

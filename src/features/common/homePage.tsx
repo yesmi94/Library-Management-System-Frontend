@@ -24,6 +24,7 @@ export default function HomePage() {
   const { isMember, isManagement, isMinorStaff, notLoggedIn } = useRole();
   const navigate = useNavigate();
   const [, setMounted] = useState(false);
+  const name = localStorage.getItem("name") || "Guest";
 
   useEffect(() => {
     setMounted(true);
@@ -77,7 +78,7 @@ export default function HomePage() {
               </div>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#4C5B8F] to-[#5A6BAE] mb-6 pb-10">
-              Welcome to LibraryHub
+              Welcome to LibraryHub, {name.split(" ")[0]}
             </h1>
             <p className="text-xl text-[#475569] max-w-2xl mx-auto leading-relaxed">
               Your gateway to endless knowledge and discovery
@@ -151,7 +152,7 @@ export default function HomePage() {
                       title: "Add New Book",
                       icon: <Plus className="h-8 w-8 text-[#4C5B8F] mb-4" />,
                       desc: "Expand the library collection",
-                      path: "/addbook",
+                      path: "/newbook",
                       btnText: "Add Book",
                     },
                     {
@@ -210,7 +211,7 @@ export default function HomePage() {
                   <div className="bg-white/70 backdrop-blur-md rounded-2xl p-6 border border-[#CBD5E1] hover:border-[#4C5B8F] transition-all duration-300 max-w-md">
                     <Users className="h-8 w-8 text-[#4C5B8F] mb-4 mx-auto" />
                     <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2 text-center">
-                      Login if you have aldeary joined the Library Hub
+                      Login if you have already joined the Library Hub
                     </h3>
                     <p className="text-[#475569] mb-4 text-center">
                       Haven't joined yet ? Register and become a part of this system

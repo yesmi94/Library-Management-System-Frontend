@@ -28,7 +28,6 @@ const BooksDisplayPage: React.FC = () => {
       throw new Error(result.message || "Failed to borrow the book.");
     }
 
-    setBooks(prev => prev.filter(b => b.id !== b.id));
     toast.success(result.message, {
         icon: <CheckCircle className="text-green-500" />
     });
@@ -40,7 +39,7 @@ const BooksDisplayPage: React.FC = () => {
     } catch (error: any) {
       console.error("Borrow error:", error.message);
       toast.error(error.message, {
-              icon: <CheckCircle className="text-red-500" />,
+              icon: <AlertCircle className="text-red-500" />,
       });
     }
   }
@@ -62,13 +61,14 @@ const BooksDisplayPage: React.FC = () => {
         throw new Error(result.message || "Failed to delete the book.");
       }
 
+      setBooks(prev => prev.filter(b => b.id !== b.id));
       toast.success(result.message, {
         icon: <CheckCircle className="text-green-500" />
       });
 
       setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      window.location.reload();
+      }, 2000);
     }
     catch (error: any) {
       console.error("Delete error:", error.message);
@@ -94,7 +94,6 @@ const BooksDisplayPage: React.FC = () => {
 
        
         const result = await res.json();
-        console.log(result.data);
         setBooks(result.data);
       } catch (err: any) {
         setError(err.message || "Unexpected error");
@@ -129,7 +128,7 @@ const BooksDisplayPage: React.FC = () => {
       <div className="relative z-50">
         <Navbar />
       </div>
-      <h2 className="text-3xl font-bold mb-6 text-center pt-6">Available Books</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center pt-6 text-[#4C5B8F]">Available Books</h2>
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-6 pl-10 pr-10">
         {books.map((book) => (
           <BookDetailsCard 

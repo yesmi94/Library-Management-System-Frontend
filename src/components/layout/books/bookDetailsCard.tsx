@@ -88,7 +88,7 @@ export const BookDetailsCard: React.FC<BookDetailsDisplayCardProps> = ({
           </Button>
         )}
 
-        {isManagement && (
+        {isManagement && book.isAvailable && (
           <Button
             variant="ghost"
             className="text-red-600 hover:text-red-800"
@@ -108,6 +108,12 @@ export const BookDetailsCard: React.FC<BookDetailsDisplayCardProps> = ({
             ? "You are about to delete this book. Do you want to continue?"
             : "You are about to borrow this book. Do you want to continue?"
         }
+        dialogTitle={
+          actionType === "delete"
+            ? "Delete the Book"
+            : "Borrow the Book"
+        }
+
       />
     </Card>
   );

@@ -14,9 +14,10 @@ interface ConfirmationDialogProps {
   onClose: () => void;
   onConfirm: () => void;
   message: string
+  dialogTitle: string
 }
 
-export function ConfirmationDialog({ isOpen, onClose, onConfirm, message }: ConfirmationDialogProps) {
+export function ConfirmationDialog({ isOpen, onClose, onConfirm, message, dialogTitle }: ConfirmationDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={val => !val && onClose()}>
       <form onSubmit={(e) => {
@@ -26,7 +27,7 @@ export function ConfirmationDialog({ isOpen, onClose, onConfirm, message }: Conf
       }}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Borrow this Book</DialogTitle>
+            <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogDescription>
               {message}
             </DialogDescription>

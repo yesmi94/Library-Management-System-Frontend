@@ -53,7 +53,6 @@ const BorrowedBooksDisplayPage: React.FC = () => {
 
         if (!res.ok) throw new Error("Failed to display the borrowed books");
 
-       
         const result = await res.json();
         console.log(result.data);
         setBorrowedBooks(result.data);
