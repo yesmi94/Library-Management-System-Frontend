@@ -13,7 +13,7 @@ interface Member {
   id: string;
   name: string;
   role: number;
-  borrowedBooksNum: number;
+  borrowedBooksNum: string;
 }
 
 
@@ -37,6 +37,29 @@ const StaffAndMembersPage: React.FC = () => {
         setMembers(persons.filter((p: Member) => p.role === 0))
         setManagementStaff(persons.filter((p: BaseUser) => p.role === 1));
         setMinorStaff(persons.filter((p: BaseUser) => p.role === 2));
+      } catch (err) {
+        console.error("Failed to fetch:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPeople();
+  }, []);
+
+  useEffect(() => {
+    const fetchPeople = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      try {
+        // Fetch Staff
+        const memberRes = await fetch("http://localhost:5014/api/persons/members", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const membersResult = await memberRes.json();
+        const members = membersResult.data;
+        setMembers(members);
+        console.log(members);
       } catch (err) {
         console.error("Failed to fetch:", err);
       } finally {

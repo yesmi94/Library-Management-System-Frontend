@@ -41,7 +41,6 @@ const Navbar: React.FC = () => {
     const handleLogout = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("role");
-      localStorage.removeItem("password");
       localStorage.removeItem("name");
       localStorage.removeItem("username");
       toast.success("Successfully Logged Out", {

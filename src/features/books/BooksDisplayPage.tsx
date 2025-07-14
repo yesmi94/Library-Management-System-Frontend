@@ -4,11 +4,18 @@ import { BookDetailsCard, type Book } from "../../components/layout/books/bookDe
 import { Loader2, AlertCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "../common/navbar";
+import { SearchBar } from "@/components/layout/common/searchBar";
 
 const BooksDisplayPage: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredBooks = books.filter(book =>
+  book.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   
 
   const handleBorrowing = async (bookId: string) => {
@@ -127,17 +134,26 @@ const BooksDisplayPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="relative z-50">
         <Navbar />
+         <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            placeholder="Search books by title..."
+          />
       </div>
       <h2 className="text-3xl font-bold mb-6 text-center pt-6 text-[#4C5B8F]">Available Books</h2>
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-6 pl-10 pr-10">
-        {books.map((book) => (
-          <BookDetailsCard 
-          key={book.id} 
-          book={book} 
-          onBorrow={handleBorrowing}
-          onDelete={handleDeleting}
-          />
-        ))}
+        {filteredBooks.length === 0 ? (
+          <p className="text-center text-gray-500 col-span-full">No books found matching your search.</p>
+        ) : (
+          filteredBooks.map((book) => (
+            <BookDetailsCard 
+              key={book.id} 
+              book={book} 
+              onBorrow={handleBorrowing}
+              onDelete={handleDeleting}
+            />
+          ))
+        )}
       </div>
     </div>
   );

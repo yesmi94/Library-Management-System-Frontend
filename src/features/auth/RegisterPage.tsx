@@ -61,7 +61,6 @@ export default function RegisterPage() {
       localStorage.setItem("role", role.toString());
       localStorage.setItem("name", name);
       localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
 
       toast.success("Registration Successful. Welcome to Library Hub", {
         icon: <CheckCircle className="text-green-500" />

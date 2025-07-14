@@ -8,17 +8,17 @@ import { useEffect, useState } from "react";
 import Navbar from "../common/navbar";
 
 // Simulated user (replace with real auth or context data)
-const nameOfTheUser = localStorage.getItem("name") || "Guest";
 
 export default function ProfilePage() {
   const [, setMounted] = useState(false);
+  const [nameOfTheUser, setNameOfTheUser] = useState("Guest");
 
   useEffect(() => {
-    setMounted(true);
-    setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+    const name = localStorage.getItem("name") || "Guest";
+    setNameOfTheUser(name);
   }, []);
+
+  
 
   const firstInitial = nameOfTheUser.charAt(0).toUpperCase();
 
